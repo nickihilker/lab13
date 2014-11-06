@@ -30,23 +30,24 @@ class MyApp:
        	    self.up.configure(text="up", background= "green")
        	    self.up.grid(row=0,column=0)
        	    self.up.bind("<Button-1>", self.upClicked)
-       	    
+       	    drawpad.pack(side=RIGHT)
+       	    self.animate()
        	    self.right = Button(self.myContainer1)
        	    self.right.configure(text="right", background= "yellow")
        	    self.right.grid(row=1,column=1)
        	    self.right.bind("<Button-1>", self.rightClicked)
-       	    
+       	    drawpad.pack(side=RIGHT)
+       	    self.animate()
        	    self.down = Button(self.myContainer1)
        	    self.down.configure(text="down", background= "pink")
        	    self.down.grid(row=0,column=1)
        	    self.down.bind("<Button-1>", self.downClicked)
-       	    
+       	    drawpad.pack(side=RIGHT)
+       	    self.animate()
        	    self.left = Button(self.myContainer1)
        	    self.left.configure(text="left", background= "black")
        	    self.left.grid(row=1,column=0)
        	    self.left.bind("<Button-1>", self.leftClicked)
-       	    
-       	    # No need to edit this - just includes the drawpad into our frame
        	    drawpad.pack(side=RIGHT)
        	    # call the animate function to start our recursion
        	    self.animate()
@@ -56,12 +57,20 @@ class MyApp:
 	    global player
 	    # Remember to include your "enemies" with "global"
             global enemy1
-	    drawpad.move(enemy1,1,0)
+
 	    global enemy2
-	    drawpad.move(enemy2,3,0)
+	    
 	    global enemy3
-	    drawpad.move(enemy3,5,0)
+	    global direction
+	    x1, y1, x2, y2 = drawpad.coords(enemy1)
+	    if x2 > drawpad.winfo_width(): 
+                direction = - 5
+            elif x1 < 0:
+                direction = 5
 	    # Uncomment this when you're ready to test out your animation!
+	    drawpad.move(enemy1,direction*.5,0)
+	    drawpad.move(enemy2,direction*-2,0)
+	    drawpad.move(enemy3,direction,0)
 	    drawpad.after(10,self.animate)
         def upClicked(self, event):   
 	   global oval
